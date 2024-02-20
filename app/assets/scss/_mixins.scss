@@ -1,0 +1,133 @@
+@mixin font($size, $line-height, $weight: null) {
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $line-height;
+}
+
+@mixin transition($property, $time, $transition) {
+  transition: $property $time $transition;
+}
+
+@mixin center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin reset-list() {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin container() {
+  width: 100%;
+  max-width: $max-width;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 $pad-s;
+
+  @include mq($m) {
+    padding: 0 $pad-m;
+  }
+
+  @include mq($l) {
+    padding: 0 $pad-l;
+  }
+
+  @include mq($xl) {
+    padding: 0 $pad-xl;
+  }
+}
+
+@mixin box {
+  background-color: #fff;
+  box-shadow: 10px 11px 30px 0px rgba(0, 0, 0, 0.05);
+  padding: 15px;
+  border-radius: 20px;
+}
+
+@mixin pseudo($top, $left, $width, $height) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  width: $width;
+  height: $height;
+  content: '';
+}
+
+@mixin variable-icon($icon, $width, $bgc, $height: '', $display: block) {
+  display: $display;
+  width: $width;
+  background-color: $bgc;
+  transition: background-color $time;
+  content: '';
+  mask: $icon no-repeat center / contain;
+
+  @if $height != '' {
+    height: $height;
+  }
+
+  @if $height == '' {
+    aspect-ratio: 1;
+  }
+}
+
+@mixin space($direction, $size) {
+  @if ($direction == top) {
+    margin-top: $step * $size;
+  }
+  @if ($direction == right) {
+    margin-right: $step * $size;
+  }
+  @if ($direction == bottom) {
+    margin-bottom: $step * $size;
+  }
+  @if ($direction == left) {
+    margin-left: $step * $size;
+  }
+}
+
+@mixin space-height($size) {
+  height: $step * $size;
+}
+
+// == media queries
+@mixin mq($canvas, $canvas2: null) {
+  @if $canvas {
+    @media only screen and (min-width: $canvas) {
+      @content;
+    }
+  }
+}
+
+@mixin mq-range($canvas-min, $canvas-max) {
+  @if $canvas-min and $canvas-max {
+    @media only screen and (min-width: $canvas-min) and (max-width: ($canvas-max - 1)) {
+      @content;
+    }
+  }
+}
+
+@mixin mq-max($canvas) {
+  @if $canvas {
+    @media only screen and (max-width: ($canvas - 1)) {
+      @content;
+    }
+  }
+}
+
+@mixin pseudo($top, $left, $width, $height) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  width: $width;
+  height: $height;
+  content: '';
+}
+
+@mixin mq-hover() {
+  @media (hover: hover) {
+    @content;
+  }
+}
